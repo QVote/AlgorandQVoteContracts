@@ -2,144 +2,129 @@
 txn ApplicationID
 int 0
 ==
-bnz l126
+bnz l145
 txn OnCompletion
 int DeleteApplication
 ==
-bnz l127
+bnz l146
 txn OnCompletion
 int UpdateApplication
 ==
-bnz l128
+bnz l147
 txn OnCompletion
 int OptIn
 ==
-bnz l129
+bnz l148
 txna ApplicationArgs 0
 byte "vote"
 ==
-bnz l130
+bnz l149
 txna ApplicationArgs 0
-byte "add_option"
+byte "add_options"
 ==
-bnz l131
+bnz l150
 err
-l126:
+l145:
 byte "Creator"
 txn Sender
 app_global_put
 byte "Name"
 txna ApplicationArgs 0
 app_global_put
-txn NumAppArgs
-int 2
->=
 txna ApplicationArgs 1
 byte "NULL_OPTION"
 !=
-&&
-bnz l133
+bnz l152
 int 1
 return
-b l134
-l133:
-txna ApplicationArgs 1
-int 0
-app_global_put
-l134:
-txn NumAppArgs
-int 3
->=
-txna ApplicationArgs 2
-byte "NULL_OPTION"
-!=
-&&
-bnz l135
-int 1
-return
-b l136
-l135:
-txna ApplicationArgs 2
-int 0
-app_global_put
-l136:
-txn NumAppArgs
-int 4
->=
-txna ApplicationArgs 3
-byte "NULL_OPTION"
-!=
-&&
-bnz l137
-int 1
-return
-b l138
-l137:
-txna ApplicationArgs 3
-int 0
-app_global_put
-l138:
-txn NumAppArgs
-int 5
->=
-txna ApplicationArgs 4
-byte "NULL_OPTION"
-!=
-&&
-bnz l139
-int 1
-return
-b l140
-l139:
-txna ApplicationArgs 4
-int 0
-app_global_put
-l140:
-txn NumAppArgs
-int 6
->=
-txna ApplicationArgs 5
-byte "NULL_OPTION"
-!=
-&&
-bnz l141
-int 1
-return
-b l142
-l141:
-txna ApplicationArgs 5
-int 0
-app_global_put
-l142:
-int 1
-return
-b l132
-l127:
-int 0
-return
-b l132
-l128:
-int 0
-return
-b l132
-l129:
-int 1
-return
-b l132
-l130:
-int 0
+b l153
+l152:
 byte "option_"
 txna ApplicationArgs 1
 concat
-app_global_get_ex
-store 0
-store 1
-load 0
-bnz l143
+int 0
+app_global_put
+l153:
+txna ApplicationArgs 2
+byte "NULL_OPTION"
+!=
+bnz l154
+int 1
+return
+b l155
+l154:
+byte "option_"
+txna ApplicationArgs 2
+concat
+int 0
+app_global_put
+l155:
+txna ApplicationArgs 3
+byte "NULL_OPTION"
+!=
+bnz l156
+int 1
+return
+b l157
+l156:
+byte "option_"
+txna ApplicationArgs 3
+concat
+int 0
+app_global_put
+l157:
+txna ApplicationArgs 4
+byte "NULL_OPTION"
+!=
+bnz l158
+int 1
+return
+b l159
+l158:
+byte "option_"
+txna ApplicationArgs 4
+concat
+int 0
+app_global_put
+l159:
+txna ApplicationArgs 5
+byte "NULL_OPTION"
+!=
+bnz l160
+int 1
+return
+b l161
+l160:
+byte "option_"
+txna ApplicationArgs 5
+concat
+int 0
+app_global_put
+l161:
+int 1
+return
+int 1
+return
+b l151
+l146:
 int 0
 return
-b l144
-l143:
+b l151
+l147:
+int 0
+return
+b l151
+l148:
+int 1
+return
+b l151
+l149:
+load 0
+bnz l162
+int 0
+return
+b l163
+l162:
 byte "option_"
 txna ApplicationArgs 1
 concat
@@ -149,14 +134,79 @@ int 1
 app_global_put
 int 1
 return
-l144:
-b l132
-l131:
+l163:
+b l151
+l150:
+txna ApplicationArgs 1
+byte "NULL_OPTION"
+!=
+bnz l164
+int 1
+return
+b l165
+l164:
 byte "option_"
 txna ApplicationArgs 1
 concat
 int 0
 app_global_put
+l165:
+txna ApplicationArgs 2
+byte "NULL_OPTION"
+!=
+bnz l166
 int 1
 return
-l132:
+b l167
+l166:
+byte "option_"
+txna ApplicationArgs 2
+concat
+int 0
+app_global_put
+l167:
+txna ApplicationArgs 3
+byte "NULL_OPTION"
+!=
+bnz l168
+int 1
+return
+b l169
+l168:
+byte "option_"
+txna ApplicationArgs 3
+concat
+int 0
+app_global_put
+l169:
+txna ApplicationArgs 4
+byte "NULL_OPTION"
+!=
+bnz l170
+int 1
+return
+b l171
+l170:
+byte "option_"
+txna ApplicationArgs 4
+concat
+int 0
+app_global_put
+l171:
+txna ApplicationArgs 5
+byte "NULL_OPTION"
+!=
+bnz l172
+int 1
+return
+b l173
+l172:
+byte "option_"
+txna ApplicationArgs 5
+concat
+int 0
+app_global_put
+l173:
+int 1
+return
+l151:
