@@ -2,140 +2,164 @@
 txn ApplicationID
 int 0
 ==
-bnz l253
+bnz l33
 txn OnCompletion
 int DeleteApplication
 ==
-bnz l254
+bnz l34
 txn OnCompletion
 int UpdateApplication
 ==
-bnz l255
+bnz l35
 txn OnCompletion
 int OptIn
 ==
-bnz l256
+bnz l36
 txna ApplicationArgs 0
 byte "vote"
 ==
-bnz l257
+bnz l37
 txna ApplicationArgs 0
 byte "add_options"
 ==
-bnz l258
+bnz l38
 err
-l253:
+l33:
 byte "Creator"
 txn Sender
 app_global_put
 byte "Name"
 txna ApplicationArgs 0
 app_global_put
+byte "asset_id"
+txna ApplicationArgs 6
+btoi
+app_global_put
+byte "asset_coefficient"
+txna ApplicationArgs 7
+btoi
+app_global_put
 txna ApplicationArgs 1
 byte "NULL_OPTION"
 !=
-bnz l260
+bnz l40
 int 1
 return
-b l261
-l260:
+b l41
+l40:
 byte "option_"
 txna ApplicationArgs 1
 concat
 int 0
 app_global_put
-l261:
+l41:
 txna ApplicationArgs 2
 byte "NULL_OPTION"
 !=
-bnz l262
+bnz l42
 int 1
 return
-b l263
-l262:
+b l43
+l42:
 byte "option_"
 txna ApplicationArgs 2
 concat
 int 0
 app_global_put
-l263:
+l43:
 txna ApplicationArgs 3
 byte "NULL_OPTION"
 !=
-bnz l264
+bnz l44
 int 1
 return
-b l265
-l264:
+b l45
+l44:
 byte "option_"
 txna ApplicationArgs 3
 concat
 int 0
 app_global_put
-l265:
+l45:
 txna ApplicationArgs 4
 byte "NULL_OPTION"
 !=
-bnz l266
+bnz l46
 int 1
 return
-b l267
-l266:
+b l47
+l46:
 byte "option_"
 txna ApplicationArgs 4
 concat
 int 0
 app_global_put
-l267:
+l47:
 txna ApplicationArgs 5
 byte "NULL_OPTION"
 !=
-bnz l268
+bnz l48
 int 1
 return
-b l269
-l268:
+b l49
+l48:
 byte "option_"
 txna ApplicationArgs 5
 concat
 int 0
 app_global_put
-l269:
+l49:
 int 1
 return
 int 1
 return
-b l259
-l254:
+b l39
+l34:
 int 0
 return
-b l259
-l255:
+b l39
+l35:
 int 0
 return
-b l259
-l256:
+b l39
+l36:
+int 0
+byte "asset_id"
+app_global_get
+asset_holding_get AssetBalance
+store 0
+store 1
+load 0
+bnz l50
+int 0
+return
+b l51
+l50:
 int 0
 byte "QVoteDecisionCredits"
-int 100
+load 1
+byte "asset_coefficient"
+app_global_get
+*
 app_local_put
 int 1
 return
-b l259
-l257:
+l51:
+b l39
+l37:
 int 0
 byte "option_"
 txna ApplicationArgs 1
 concat
 app_global_get_ex
-store 0
-store 1
-load 0
-bnz l270
+store 2
+store 3
+load 2
+bnz l52
 int 0
 return
-b l273
-l270:
+b l55
+l52:
 int 0
 byte "QVoteDecisionCredits"
 int 0
@@ -153,95 +177,95 @@ byte "QVoteDecisionCredits"
 app_local_get
 int 0
 >=
-bnz l271
+bnz l53
 int 0
 return
-b l272
-l271:
+b l54
+l53:
 byte "option_"
 txna ApplicationArgs 1
 concat
-load 1
+load 3
 txna ApplicationArgs 2
 btoi
 +
 app_global_put
-l272:
+l54:
 int 1
 return
-l273:
-b l259
-l258:
+l55:
+b l39
+l38:
 txna ApplicationArgs 1
 byte "NULL_OPTION"
 !=
-bnz l274
+bnz l56
 int 1
 return
-b l275
-l274:
+b l57
+l56:
 byte "option_"
 txna ApplicationArgs 1
 concat
 int 0
 app_global_put
-l275:
+l57:
 txna ApplicationArgs 2
 byte "NULL_OPTION"
 !=
-bnz l276
+bnz l58
 int 1
 return
-b l277
-l276:
+b l59
+l58:
 byte "option_"
 txna ApplicationArgs 2
 concat
 int 0
 app_global_put
-l277:
+l59:
 txna ApplicationArgs 3
 byte "NULL_OPTION"
 !=
-bnz l278
+bnz l60
 int 1
 return
-b l279
-l278:
+b l61
+l60:
 byte "option_"
 txna ApplicationArgs 3
 concat
 int 0
 app_global_put
-l279:
+l61:
 txna ApplicationArgs 4
 byte "NULL_OPTION"
 !=
-bnz l280
+bnz l62
 int 1
 return
-b l281
-l280:
+b l63
+l62:
 byte "option_"
 txna ApplicationArgs 4
 concat
 int 0
 app_global_put
-l281:
+l63:
 txna ApplicationArgs 5
 byte "NULL_OPTION"
 !=
-bnz l282
+bnz l64
 int 1
 return
-b l283
-l282:
+b l65
+l64:
 byte "option_"
 txna ApplicationArgs 5
 concat
 int 0
 app_global_put
-l283:
+l65:
 int 1
 return
-l259:
+l39:
