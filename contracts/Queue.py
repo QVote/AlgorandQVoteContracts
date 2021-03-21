@@ -9,10 +9,11 @@ def approval_program():
     index_key = Bytes("index")          # the next addressed pushed will have this index
     queue_size_key = Bytes("size")      # maximum number of addresses that can be stored in this queue 
     
-    # TODO check validity of queue_size param (must not overflow) 
+    user_queue_size = Btoi(Txn.application_args[0])
     on_creation = Seq([    
         App.globalPut(index_key, Int(0)),  
-        App.globalPut(queue_size_key, Btoi(Txn.application_args[0])),
+        If(user_queue_size > Int(62), Return(Int(0))),   # in any case, this should never be more than 62, no matter what the schema 
+        App.globalPut(queue_size_key, user_queue_size),
         Return(Int(1))
     ])    
 

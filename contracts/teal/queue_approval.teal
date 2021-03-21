@@ -24,6 +24,14 @@ l0:
 byte "index"
 int 0
 app_global_put
+txna ApplicationArgs 0
+btoi
+int 62
+>
+bz l6
+int 0
+return
+l6:
 byte "size"
 txna ApplicationArgs 0
 btoi
@@ -56,19 +64,19 @@ app_global_get
 int 1
 +
 >
-bnz l6
+bnz l7
 byte "index"
 int 0
 app_global_put
-b l7
-l6:
+b l8
+l7:
 byte "index"
 byte "index"
 app_global_get
 int 1
 +
 app_global_put
-l7:
+l8:
 int 1
 return
 l5:
