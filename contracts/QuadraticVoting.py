@@ -1,6 +1,8 @@
 import sys
 from pyteal import *    
     
+from pyteal import *    
+    
 def approval_program():     
     VOTING_CREDIT_SYM = Bytes("QVoteDecisionCredits")
     OPTION_PREFIX = Bytes("option_")

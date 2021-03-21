@@ -21,7 +21,9 @@ def approval_program():
     on_optin = Return(Int(1))
     
     current_index = App.globalGet(index_key)
+    new_decision_address = Txn.application_args[1]
     on_push = Seq([    # TODO check that what is pushed is actually and address, or at least has the correct length 
+        # NOTE maybe this can be achieved by passing this address in Txn.accounts instead of app args 
         App.globalPut(Itob(current_index), Txn.application_args[1]), 
         If(App.globalGet(queue_size_key) > current_index+Int(1),    # updating index 
               App.globalPut(index_key, current_index+Int(1)), 
