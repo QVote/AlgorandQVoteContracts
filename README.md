@@ -3,6 +3,14 @@ PyTeal Quadratic Voting smart contracts for Algorand
 
 Part of the [Algorand Foundation Grants Program](https://algorand.foundation/grants-program). 💸
 
+## What It Does
+These contracts make it simple to do quadratic voting decisions on the Algorand blockchain.
+
+###### &nbsp;&nbsp;&nbsp;&nbsp; 🌍 &nbsp; Support for positive and negative credit distributions (true quadratic voting).
+######  &nbsp;&nbsp;&nbsp;&nbsp; 🔒 &nbsp; Voters can vote depending on their stake in a given Algorand asset.
+###### &nbsp;&nbsp;&nbsp;&nbsp; 🗄️ &nbsp; Store references to decisions in the Queue smart contract for increased accessibility.
+######  &nbsp;&nbsp;&nbsp;&nbsp; 🕐 &nbsp; Decisions have a registration period, start time and end time.
+
 # Contracts :scroll:
 Contracts are located in: /contracts
 
@@ -21,6 +29,10 @@ This is the real quadratic voting contract. Each contract represents one decisio
 ### DecisionQueue
 This smart contract is simply a reference to the 'up to 61 latest' decision smart contracts. The contracts referenced here are to be posted on the web app using the contracts. If you want to create an election and NOT have it be displayed on the web app, don't register it in the queue. 
 
+# Demo 🤓
+Go to /notebooks
+
+And play around with the contracts yourself!
 
 # Tests :test_tube:
 # FILL THIS IN
