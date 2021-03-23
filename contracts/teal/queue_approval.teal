@@ -1,0 +1,82 @@
+#pragma version 2
+txn ApplicationID
+int 0
+==
+bnz l0
+txn OnCompletion
+int DeleteApplication
+==
+bnz l1
+txn OnCompletion
+int UpdateApplication
+==
+bnz l2
+txn OnCompletion
+int OptIn
+==
+bnz l3
+txna ApplicationArgs 0
+byte "push"
+==
+bnz l4
+err
+l0:
+byte "index"
+int 0
+app_global_put
+txna ApplicationArgs 0
+btoi
+int 62
+>
+bz l6
+int 0
+return
+l6:
+byte "size"
+txna ApplicationArgs 0
+btoi
+app_global_put
+int 1
+return
+b l5
+l1:
+int 0
+return
+b l5
+l2:
+int 0
+return
+b l5
+l3:
+int 1
+return
+b l5
+l4:
+byte "index"
+app_global_get
+itob
+txna ApplicationArgs 1
+app_global_put
+byte "size"
+app_global_get
+byte "index"
+app_global_get
+int 1
++
+>
+bnz l7
+byte "index"
+int 0
+app_global_put
+b l8
+l7:
+byte "index"
+byte "index"
+app_global_get
+int 1
++
+app_global_put
+l8:
+int 1
+return
+l5:
