@@ -39,6 +39,14 @@ byte "asset_coefficient"
 txna ApplicationArgs 7
 btoi
 app_global_put
+byte "voting_start_time"
+txna ApplicationArgs 8
+btoi
+app_global_put
+byte "voting_end_time"
+txna ApplicationArgs 9
+btoi
+app_global_put
 txna ApplicationArgs 1
 byte "NULL_OPTION"
 !=
@@ -123,6 +131,14 @@ int 0
 return
 b l6
 l3:
+global LatestTimestamp
+byte "voting_start_time"
+app_global_get
+>
+bz l17
+int 0
+return
+l17:
 int 0
 byte "asset_id"
 app_global_get
@@ -130,11 +146,11 @@ asset_holding_get AssetBalance
 store 0
 store 1
 load 0
-bnz l17
+bnz l18
 int 0
 return
-b l18
-l17:
+b l19
+l18:
 int 0
 byte "QVoteDecisionCredits"
 load 1
@@ -144,9 +160,25 @@ app_global_get
 app_local_put
 int 1
 return
-l18:
+l19:
 b l6
 l4:
+global LatestTimestamp
+byte "voting_start_time"
+app_global_get
+<
+bz l20
+int 0
+return
+l20:
+global LatestTimestamp
+byte "voting_end_time"
+app_global_get
+>
+bz l21
+int 0
+return
+l21:
 int 0
 byte "option_"
 txna ApplicationArgs 1
@@ -155,11 +187,11 @@ app_global_get_ex
 store 2
 store 3
 load 2
-bnz l19
+bnz l22
 int 0
 return
-b l24
-l19:
+b l27
+l22:
 int 0
 byte "QVoteDecisionCredits"
 int 0
@@ -177,15 +209,15 @@ byte "QVoteDecisionCredits"
 app_local_get
 int 0
 >=
-bnz l20
+bnz l23
 int 0
 return
-b l23
-l20:
+b l26
+l23:
 txna ApplicationArgs 3
 byte "-"
 ==
-bnz l21
+bnz l24
 byte "option_"
 txna ApplicationArgs 1
 concat
@@ -194,8 +226,8 @@ txna ApplicationArgs 2
 btoi
 +
 app_global_put
-b l22
-l21:
+b l25
+l24:
 byte "option_"
 txna ApplicationArgs 1
 concat
@@ -204,83 +236,83 @@ txna ApplicationArgs 2
 btoi
 -
 app_global_put
-l22:
-l23:
+l25:
+l26:
 int 1
 return
-l24:
+l27:
 b l6
 l5:
 txna ApplicationArgs 1
 byte "NULL_OPTION"
 !=
-bnz l25
+bnz l28
 int 1
 return
-b l26
-l25:
+b l29
+l28:
 byte "option_"
 txna ApplicationArgs 1
 concat
 int 9223372036854775808
 app_global_put
-l26:
-txna ApplicationArgs 2
-byte "NULL_OPTION"
-!=
-bnz l27
-int 1
-return
-b l28
-l27:
-byte "option_"
-txna ApplicationArgs 2
-concat
-int 9223372036854775808
-app_global_put
-l28:
-txna ApplicationArgs 3
-byte "NULL_OPTION"
-!=
-bnz l29
-int 1
-return
-b l30
 l29:
+txna ApplicationArgs 2
+byte "NULL_OPTION"
+!=
+bnz l30
+int 1
+return
+b l31
+l30:
+byte "option_"
+txna ApplicationArgs 2
+concat
+int 9223372036854775808
+app_global_put
+l31:
+txna ApplicationArgs 3
+byte "NULL_OPTION"
+!=
+bnz l32
+int 1
+return
+b l33
+l32:
 byte "option_"
 txna ApplicationArgs 3
 concat
 int 9223372036854775808
 app_global_put
-l30:
-txna ApplicationArgs 4
-byte "NULL_OPTION"
-!=
-bnz l31
-int 1
-return
-b l32
-l31:
-byte "option_"
-txna ApplicationArgs 4
-concat
-int 9223372036854775808
-app_global_put
-l32:
-txna ApplicationArgs 5
-byte "NULL_OPTION"
-!=
-bnz l33
-int 1
-return
-b l34
 l33:
+txna ApplicationArgs 4
+byte "NULL_OPTION"
+!=
+bnz l34
+int 1
+return
+b l35
+l34:
+byte "option_"
+txna ApplicationArgs 4
+concat
+int 9223372036854775808
+app_global_put
+l35:
+txna ApplicationArgs 5
+byte "NULL_OPTION"
+!=
+bnz l36
+int 1
+return
+b l37
+l36:
 byte "option_"
 txna ApplicationArgs 5
 concat
 int 9223372036854775808
 app_global_put
-l34:
+l37:
 int 1
 return
 l6:
