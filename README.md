@@ -177,7 +177,6 @@ call_txid = algod_client.send_transaction(call_tx.sign(funded_accounts[2]['sk'])
 
 
 
-
 ## Possible extensions:
 - [ ] Add quadratic funding on top of QVoting contract
 - [ ] QVote with NFTs. This would actually make credit checking and double voting prevention much easier. Idea is "if you have this NFT you have this amount of credits available to you" 
