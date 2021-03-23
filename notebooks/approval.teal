@@ -2,81 +2,333 @@
 txn ApplicationID
 int 0
 ==
-bnz l0
+bnz l80
 txn OnCompletion
 int DeleteApplication
 ==
-bnz l1
+bnz l81
 txn OnCompletion
 int UpdateApplication
 ==
-bnz l2
+bnz l82
 txn OnCompletion
 int OptIn
 ==
-bnz l3
+bnz l83
 txna ApplicationArgs 0
-byte "push"
+byte "vote"
 ==
-bnz l4
+bnz l84
+txna ApplicationArgs 0
+byte "add_options"
+==
+bnz l85
 err
-l0:
-byte "index"
-int 0
+l80:
+byte "Creator"
+txn Sender
 app_global_put
+byte "Name"
 txna ApplicationArgs 0
-btoi
-int 61
->
-bz l6
-int 0
-return
-l6:
-byte "size"
-txna ApplicationArgs 0
+app_global_put
+byte "asset_id"
+txna ApplicationArgs 6
 btoi
 app_global_put
-int 1
-return
-b l5
-l1:
-int 0
-return
-b l5
-l2:
-int 0
-return
-b l5
-l3:
-int 1
-return
-b l5
-l4:
-byte "index"
+byte "asset_coefficient"
+txna ApplicationArgs 7
+btoi
+app_global_put
+byte "voting_start_time"
+txna ApplicationArgs 8
+btoi
+app_global_put
+byte "voting_end_time"
+txna ApplicationArgs 9
+btoi
+app_global_put
+global LatestTimestamp
+byte "voting_start_time"
 app_global_get
-itob
+>
+bz l87
+int 0
+return
+l87:
 txna ApplicationArgs 1
-app_global_put
-byte "size"
-app_global_get
-byte "index"
-app_global_get
-int 1
-+
->
-bnz l7
-byte "index"
-int 0
-app_global_put
-b l8
-l7:
-byte "index"
-byte "index"
-app_global_get
-int 1
-+
-app_global_put
-l8:
+byte "NULL_OPTION"
+!=
+bnz l88
 int 1
 return
-l5:
+b l89
+l88:
+byte "option_"
+txna ApplicationArgs 1
+concat
+int 9223372036854775808
+app_global_put
+l89:
+txna ApplicationArgs 2
+byte "NULL_OPTION"
+!=
+bnz l90
+int 1
+return
+b l91
+l90:
+byte "option_"
+txna ApplicationArgs 2
+concat
+int 9223372036854775808
+app_global_put
+l91:
+txna ApplicationArgs 3
+byte "NULL_OPTION"
+!=
+bnz l92
+int 1
+return
+b l93
+l92:
+byte "option_"
+txna ApplicationArgs 3
+concat
+int 9223372036854775808
+app_global_put
+l93:
+txna ApplicationArgs 4
+byte "NULL_OPTION"
+!=
+bnz l94
+int 1
+return
+b l95
+l94:
+byte "option_"
+txna ApplicationArgs 4
+concat
+int 9223372036854775808
+app_global_put
+l95:
+txna ApplicationArgs 5
+byte "NULL_OPTION"
+!=
+bnz l96
+int 1
+return
+b l97
+l96:
+byte "option_"
+txna ApplicationArgs 5
+concat
+int 9223372036854775808
+app_global_put
+l97:
+int 1
+return
+int 1
+return
+b l86
+l81:
+int 0
+return
+b l86
+l82:
+int 0
+return
+b l86
+l83:
+global LatestTimestamp
+byte "voting_start_time"
+app_global_get
+>
+bz l98
+int 0
+return
+l98:
+int 0
+byte "asset_id"
+app_global_get
+asset_holding_get AssetBalance
+store 0
+store 1
+load 0
+bnz l99
+int 0
+return
+b l100
+l99:
+int 0
+byte "QVoteDecisionCredits"
+load 1
+byte "asset_coefficient"
+app_global_get
+*
+app_local_put
+int 1
+return
+l100:
+b l86
+l84:
+global LatestTimestamp
+byte "voting_start_time"
+app_global_get
+<
+bz l101
+int 0
+return
+l101:
+global LatestTimestamp
+byte "voting_end_time"
+app_global_get
+>
+bz l102
+int 0
+return
+l102:
+int 0
+byte "option_"
+txna ApplicationArgs 1
+concat
+app_global_get_ex
+store 2
+store 3
+load 2
+bnz l103
+int 0
+return
+b l108
+l103:
+int 0
+byte "QVoteDecisionCredits"
+int 0
+byte "QVoteDecisionCredits"
+app_local_get
+txna ApplicationArgs 2
+btoi
+txna ApplicationArgs 2
+btoi
+*
+-
+app_local_put
+int 0
+byte "QVoteDecisionCredits"
+app_local_get
+int 0
+>=
+bnz l104
+int 0
+return
+b l107
+l104:
+txna ApplicationArgs 3
+byte "-"
+==
+bnz l105
+byte "option_"
+txna ApplicationArgs 1
+concat
+load 3
+txna ApplicationArgs 2
+btoi
++
+app_global_put
+b l106
+l105:
+byte "option_"
+txna ApplicationArgs 1
+concat
+load 3
+txna ApplicationArgs 2
+btoi
+-
+app_global_put
+l106:
+l107:
+int 1
+return
+l108:
+b l86
+l85:
+global LatestTimestamp
+byte "voting_start_time"
+app_global_get
+>
+bz l109
+int 0
+return
+l109:
+txna ApplicationArgs 1
+byte "NULL_OPTION"
+!=
+bnz l110
+int 1
+return
+b l111
+l110:
+byte "option_"
+txna ApplicationArgs 1
+concat
+int 9223372036854775808
+app_global_put
+l111:
+txna ApplicationArgs 2
+byte "NULL_OPTION"
+!=
+bnz l112
+int 1
+return
+b l113
+l112:
+byte "option_"
+txna ApplicationArgs 2
+concat
+int 9223372036854775808
+app_global_put
+l113:
+txna ApplicationArgs 3
+byte "NULL_OPTION"
+!=
+bnz l114
+int 1
+return
+b l115
+l114:
+byte "option_"
+txna ApplicationArgs 3
+concat
+int 9223372036854775808
+app_global_put
+l115:
+txna ApplicationArgs 4
+byte "NULL_OPTION"
+!=
+bnz l116
+int 1
+return
+b l117
+l116:
+byte "option_"
+txna ApplicationArgs 4
+concat
+int 9223372036854775808
+app_global_put
+l117:
+txna ApplicationArgs 5
+byte "NULL_OPTION"
+!=
+bnz l118
+int 1
+return
+b l119
+l118:
+byte "option_"
+txna ApplicationArgs 5
+concat
+int 9223372036854775808
+app_global_put
+l119:
+int 1
+return
+l86:
