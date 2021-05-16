@@ -8,7 +8,7 @@ def approval_program():
     VOTING_CREDIT_SYM = Bytes("QVoteDecisionCredits")
     OPTION_PREFIX = Bytes("option_")
     NULL_OPTION = Bytes("NULL_OPTION")
-    ZERO = Int(2**63)     # to have neative numbers 
+    ZERO = Int(2**32)     # to have neative numbers 
     MINUS = Bytes("-")
     
     arg_num = Txn.application_args.length()
