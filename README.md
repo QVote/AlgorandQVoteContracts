@@ -1,5 +1,5 @@
 # AlgorandQVoteContracts 💎
-### [Join our discord!](https://discord.gg/AWt6k9XhpT)
+
 PyTeal Quadratic Voting smart contracts for Algorand
 
 Part of the [Algorand Foundation Grants Program](https://algorand.foundation/grants-program). 💸
